@@ -1,0 +1,176 @@
+{
+  "contractName": "DStorage",
+  "abi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a72305820b8c4d51e0bc82f4cd0ce46f77d3c7f12c2d681ba320866bcdb291895558ca36e0029",
+  "deployedBytecode": "0x6080604052600080fdfea165627a7a72305820b8c4d51e0bc82f4cd0ce46f77d3c7f12c2d681ba320866bcdb291895558ca36e0029",
+  "sourceMap": "25:490:0:-;;;134:26;8:9:-1;5:2;;;30:1;27;20:12;5:2;134:26:0;25:490;;;;;;",
+  "deployedSourceMap": "25:490:0:-;;;;;",
+  "source": "pragma solidity ^0.5.0;\n\ncontract DStorage {\n  // Name\n  // Number of files\n  // Mapping fileId=>Struct \n\n  // Struct\n\n\n  // Event\n\n  constructor() public {\n  }\n\n  // Upload File function\n\n    // Make sure the file hash exists\n\n    // Make sure file type exists\n\n    // Make sure file description exists\n\n    // Make sure file fileName exists\n\n    // Make sure uploader address exists\n\n    // Make sure file size is more than 0\n\n\n    // Increment file id\n\n    // Add File to the contract\n\n    // Trigger an event\n\n}",
+  "sourcePath": "/Users/marxw/Desktop/Voruto/src/contracts/DStorage.sol",
+  "ast": {
+    "absolutePath": "/Users/marxw/Desktop/Voruto/src/contracts/DStorage.sol",
+    "exportedSymbols": {
+      "DStorage": [
+        6
+      ]
+    },
+    "id": 7,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:0"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 6,
+        "linearizedBaseContracts": [
+          6
+        ],
+        "name": "DStorage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 4,
+              "nodeType": "Block",
+              "src": "155:5:0",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 5,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "145:2:0"
+            },
+            "returnParameters": {
+              "id": 3,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "155:0:0"
+            },
+            "scope": 6,
+            "src": "134:26:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 7,
+        "src": "25:490:0"
+      }
+    ],
+    "src": "0:515:0"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/marxw/Desktop/Voruto/src/contracts/DStorage.sol",
+    "exportedSymbols": {
+      "DStorage": [
+        6
+      ]
+    },
+    "id": 7,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:0"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 6,
+        "linearizedBaseContracts": [
+          6
+        ],
+        "name": "DStorage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 4,
+              "nodeType": "Block",
+              "src": "155:5:0",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 5,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "145:2:0"
+            },
+            "returnParameters": {
+              "id": 3,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "155:0:0"
+            },
+            "scope": 6,
+            "src": "134:26:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 7,
+        "src": "25:490:0"
+      }
+    ],
+    "src": "0:515:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.1",
+  "updatedAt": "2022-04-30T19:58:31.532Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

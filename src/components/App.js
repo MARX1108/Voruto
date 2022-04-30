@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import Navbar from "./Navbar";
 import Main from "./Main";
 import Web3 from "web3";
-import "./App.css";
+
+import Dashboard from "./Layout";
 import { ChakraProvider } from "@chakra-ui/react";
 
 //Declare IPFS
@@ -54,17 +55,18 @@ class App extends Component {
   render() {
     return (
       <ChakraProvider>
-        <Navbar account={this.state.account} />
+        {/* <Navbar account={this.state.account} /> */}
         {this.state.loading ? (
           <div id="loader" className="text-center mt-5">
             <p>Loading...</p>
           </div>
         ) : (
-          <Main
-            files={this.state.files}
-            captureFile={this.captureFile}
-            uploadFile={this.uploadFile}
-          />
+          <Dashboard />
+          // <Main
+          //   files={this.state.files}
+          //   captureFile={this.captureFile}
+          //   uploadFile={this.uploadFile}
+          // />
         )}
       </ChakraProvider>
     );
