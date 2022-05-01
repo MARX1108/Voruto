@@ -49,7 +49,6 @@ contract("DataContract", ([deployer, borrower]) => {
       // SUCESS
       assert.equal(contractCount, 1);
       const event = result.logs[0].args;
-      console.log(event);
       assert.equal(
         event.Id.toNumber(),
         contractCount.toNumber(),

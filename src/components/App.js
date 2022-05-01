@@ -9,17 +9,15 @@ import DataContract from "../abis/DataContract.json";
 import Storage from "../abis/Storage.json";
 import create from "ipfs-http-client";
 
-// const ipfsClient = require("ipfs-http-client");
-// const ipfs = ipfsClient({
-//   host: "ipfs.infura.io",
-//   port: 5001,
-//   protocol: "https",
-// }); // leaving out the arguments will default to these values
+const ipfsClient = require("ipfs-http-client");
+const ipfs = ipfsClient({
+  host: "ipfs.infura.io",
+  port: 5001,
+  protocol: "https",
+}); // leaving out the arguments will default to these values
 // const ipfs = create({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
+// const ipfs = create("https://ipfs.infura.io:5001/api/v0");
 
-const ipfs = create({
-  url: "https://ipfs.infura.io:5001/api/v0",
-});
 class App extends Component {
   async componentWillMount() {
     await this.loadWeb3();
@@ -105,48 +103,43 @@ class App extends Component {
     };
   };
 
-  uploadFile = (description) => {
-    console.log("Submitting file to IPFS...");
-
+  async uploadFile(description) {
     // Add file to the IPFS
-
     try {
-      ipfs.add(this.state.buffer, (error, result) => {
-        console.log("IPFS result", result.size);
-        console.error(error);
-      });
+      const result = await ipfs.add(this.state.buffer);
+      console.log(result[0].hash);
+      console.log(result[0].size);
+
+      this.setState({ loading: true });
+      // Assign value for the file without extension
+      if (this.state.type === "") {
+        this.setState({ type: "none" });
+      }
+      this.state.storage.methods
+        .uploadFile(
+          result[0].hash,
+          result[0].size,
+          this.state.type,
+          this.state.name,
+          description
+        )
+        .send({ from: this.state.account })
+        .on("transactionHash", (hash) => {
+          this.setState({
+            loading: false,
+            type: null,
+            name: null,
+          });
+          window.location.reload();
+        })
+        .on("error", (e) => {
+          window.alert("Error");
+          this.setState({ loading: false });
+        });
     } catch (error) {
       console.error("IPFS error ", error);
     }
-
-    // this.setState({ loading: true });
-    // // Assign value for the file without extension
-    // if (this.state.type === "") {
-    //   this.setState({ type: "none" });
-    // }
-    // this.state.storage.methods
-    //   .uploadFile(
-    //     result[0].hash,
-    //     result[0].size,
-    //     this.state.type,
-    //     this.state.name,
-    //     description
-    //   )
-    //   .send({ from: this.state.account })
-    //   .on("transactionHash", (hash) => {
-    //     this.setState({
-    //       loading: false,
-    //       type: null,
-    //       name: null,
-    //     });
-    //     window.location.reload();
-    //   })
-    //   .on("error", (e) => {
-    //     window.alert("Error");
-    //     this.setState({ loading: false });
-    //   });
-    // });
-  };
+  }
 
   //Set states
   constructor(props) {
