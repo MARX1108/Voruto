@@ -40,7 +40,7 @@ export default function Dashboard(props) {
         minH="100vh"
         pt="50px"
       >
-        <Main account={props.account} />
+        <Main balance={props.balance} />
       </Box>
       {/* <Footer /> */}
     </Box>

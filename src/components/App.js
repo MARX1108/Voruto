@@ -30,6 +30,11 @@ class App extends Component {
     // Load account
     const accounts = await web3.eth.getAccounts();
     this.setState({ account: accounts[0] });
+
+    const balance = await web3.eth.getBalance(accounts[0]);
+    
+    this.setState({ balance: balance });
+
     // Network ID
     const networkId = await web3.eth.net.getId();
     const networkData = DataContract.networks[networkId];
@@ -84,7 +89,10 @@ class App extends Component {
             <p>Loading...</p>
           </div>
         ) : (
-          <Dashboard account={this.state.account} />
+          <Dashboard
+            account={this.state.account}
+            balance={this.state.balance}
+          />
           // <Main
           //   files={this.state.files}
           //   captureFile={this.captureFile}

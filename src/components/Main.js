@@ -27,7 +27,12 @@ export default function Main(props) {
           <Box mx="5" p="10">
             <Stat>
               <StatLabel>Balance</StatLabel>
-              <StatNumber>{props.account} ETH</StatNumber>
+              <StatNumber>
+                {props.balance
+                  ? window.web3.utils.fromWei(props.balance, "ether")
+                  : null}
+                ETH
+              </StatNumber>
               <StatHelpText>
                 <StatArrow type="increase" />
                 23.36%
