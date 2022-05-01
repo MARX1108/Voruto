@@ -14,6 +14,7 @@ contract DataContract {
         string Description;
         uint256 createdAt;
         bool effective;
+        bool signed;
         uint256 length;
         uint256 stakingBalance;
         string fileHash;
@@ -25,7 +26,8 @@ contract DataContract {
         address borrower,
         string Description,
         uint256 uploadTime,
-        bool effective
+        bool effective,
+        string fileHash
     );
 
     constructor() public {}
@@ -48,6 +50,7 @@ contract DataContract {
             _fileDescription,
             now,
             false,
+            false,
             _length,
             _stakingBalance,
             _fileHash
@@ -59,7 +62,8 @@ contract DataContract {
             msg.sender,
             _fileDescription,
             now,
-            false
+            false,
+            _fileHash
         );
     }
 }
