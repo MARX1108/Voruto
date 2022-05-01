@@ -66,4 +66,8 @@ contract DataContract {
             _fileHash
         );
     }
+
+    function SignAContract() public {
+        
+    }
 }
