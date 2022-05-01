@@ -6,7 +6,20 @@ import Dashboard from "./Layout";
 import { ChakraProvider } from "@chakra-ui/react";
 import DataContract from "../abis/DataContract.json";
 //Declare IPFS
+import Storage from "../abis/Storage.json";
+import create from "ipfs-http-client";
 
+// const ipfsClient = require("ipfs-http-client");
+// const ipfs = ipfsClient({
+//   host: "ipfs.infura.io",
+//   port: 5001,
+//   protocol: "https",
+// }); // leaving out the arguments will default to these values
+// const ipfs = create({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
+
+const ipfs = create({
+  url: "https://ipfs.infura.io:5001/api/v0",
+});
 class App extends Component {
   async componentWillMount() {
     await this.loadWeb3();
@@ -32,7 +45,7 @@ class App extends Component {
     this.setState({ account: accounts[0] });
 
     const balance = await web3.eth.getBalance(accounts[0]);
-    
+
     this.setState({ balance: balance });
 
     // Network ID
@@ -46,44 +59,106 @@ class App extends Component {
       );
       this.setState({ dataContract });
       // Get files amount
-      const filesCount = await dataContract.methods.contractCount().call();
+      const contractCount = await dataContract.methods.contractCount().call();
+      this.setState({ contractCount });
+      // Load files&sort by the newest
+      for (var i = contractCount; i >= 1; i--) {
+        const contracts = await dataContract.methods.contracts(i).call();
+        this.setState({
+          contracts: [...this.state.filcontracts, contracts],
+        });
+      }
+    } else {
+      window.alert("DataContract not deployed to detected network.");
+    }
+
+    // Load DappToken
+    const storageData = Storage.networks[networkId];
+    if (storageData) {
+      const storage = new web3.eth.Contract(Storage.abi, storageData.address);
+      this.setState({ storage });
+      // Get files amount
+      const filesCount = await storage.methods.fileCount().call();
       this.setState({ filesCount });
       // Load files&sort by the newest
       for (var i = filesCount; i >= 1; i--) {
-        const file = await dataContract.methods.files(i).call();
+        const file = await storage.methods.files(i).call();
         this.setState({
           files: [...this.state.files, file],
         });
       }
     } else {
-      window.alert("DStorage contract not deployed to detected network.");
+      window.alert("storage contract not deployed to detected network.");
     }
   }
-  // Get file from user
-  captureFile = (event) => {};
+  captureFile = (file) => {
+    const reader = new window.FileReader();
 
-  //Upload File
+    reader.readAsArrayBuffer(file);
+    reader.onloadend = () => {
+      this.setState({
+        buffer: Buffer(reader.result),
+        type: file.type,
+        name: file.name,
+      });
+      console.log("buffer", this.state.buffer);
+    };
+  };
+
   uploadFile = (description) => {
-    //Add file to the IPFS
-    //Check If error
-    //Return error
-    //Set state to loading
-    //Assign value for the file without extension
-    //Call smart contract uploadFile function
+    console.log("Submitting file to IPFS...");
+
+    // Add file to the IPFS
+
+    try {
+      ipfs.add(this.state.buffer, (error, result) => {
+        console.log("IPFS result", result.size);
+        console.error(error);
+      });
+    } catch (error) {
+      console.error("IPFS error ", error);
+    }
+
+    // this.setState({ loading: true });
+    // // Assign value for the file without extension
+    // if (this.state.type === "") {
+    //   this.setState({ type: "none" });
+    // }
+    // this.state.storage.methods
+    //   .uploadFile(
+    //     result[0].hash,
+    //     result[0].size,
+    //     this.state.type,
+    //     this.state.name,
+    //     description
+    //   )
+    //   .send({ from: this.state.account })
+    //   .on("transactionHash", (hash) => {
+    //     this.setState({
+    //       loading: false,
+    //       type: null,
+    //       name: null,
+    //     });
+    //     window.location.reload();
+    //   })
+    //   .on("error", (e) => {
+    //     window.alert("Error");
+    //     this.setState({ loading: false });
+    //   });
+    // });
   };
 
   //Set states
   constructor(props) {
     super(props);
     this.state = {};
-
-    //Bind functions
+    this.uploadFile = this.uploadFile.bind(this);
+    this.captureFile = this.captureFile.bind(this);
   }
 
   render() {
     return (
       <ChakraProvider>
-        {/* <Navbar account={this.state.account} /> */}
         {this.state.loading ? (
           <div id="loader" className="text-center mt-5">
             <p>Loading...</p>
@@ -92,12 +167,10 @@ class App extends Component {
           <Dashboard
             account={this.state.account}
             balance={this.state.balance}
+            files={this.state.files}
+            captureFile={this.captureFile}
+            uploadFile={this.uploadFile}
           />
-          // <Main
-          //   files={this.state.files}
-          //   captureFile={this.captureFile}
-          //   uploadFile={this.uploadFile}
-          // />
         )}
       </ChakraProvider>
     );

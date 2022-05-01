@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
-
+import Files from "./Files";
 export default function Main(props) {
   return (
     <Box
@@ -43,7 +43,13 @@ export default function Main(props) {
 
         <GridItem colSpan={3} bg="white" borderRadius="25px" />
         <GridItem colSpan={2} bg="white" borderRadius="25px" />
-        <GridItem colSpan={3} bg="white" borderRadius="25px" />
+        <GridItem colSpan={3} bg="white" borderRadius="25px">
+          <Files
+            files={props.files}
+            captureFile={props.captureFile}
+            uploadFile={props.uploadFile}
+          ></Files>
+        </GridItem>
       </Grid>
     </Box>
   );

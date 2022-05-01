@@ -40,7 +40,12 @@ export default function Dashboard(props) {
         minH="100vh"
         pt="50px"
       >
-        <Main balance={props.balance} />
+        <Main
+          balance={props.balance}
+          files={props.files}
+          captureFile={props.captureFile}
+          uploadFile={props.uploadFile}
+        />
       </Box>
       {/* <Footer /> */}
     </Box>

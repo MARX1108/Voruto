@@ -1,5 +1,6 @@
 pragma solidity ^0.5.0;
 import "./Storage.sol";
+import 'antd/dist/antd.css';
 
 contract DataContract {
     string public name = "Data Contract";
@@ -68,6 +69,6 @@ contract DataContract {
     }
 
     function SignAContract() public {
-        
+
     }
 }
