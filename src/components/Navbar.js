@@ -9,7 +9,6 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 
 export default function Navbar(props) {
@@ -23,7 +22,7 @@ export default function Navbar(props) {
     };
   });
 
-  const { secondary, message, brandText } = props;
+  const { secondary, message } = props;
 
   // Here are all the props that may change depending on navbar's type or state.(secondary, variant, scrolled)
   let mainText = useColorModeValue("navy.700", "white");
@@ -134,6 +133,9 @@ export default function Navbar(props) {
           >
             Voruto
           </Link>
+          <Text fontSize="sm" color="grey">
+            {props.account}
+          </Text>
         </Box>
         <Box ms="auto" w={{ sm: "100%", md: "unset" }}></Box>
       </Flex>

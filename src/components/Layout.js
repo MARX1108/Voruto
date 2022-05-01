@@ -1,4 +1,4 @@
-import { Portal, Box, useDisclosure } from "@chakra-ui/react";
+import { Portal, Box } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Main from "./Main";
@@ -22,13 +22,14 @@ export default function Dashboard(props) {
       <Portal>
         <Box>
           <Navbar
-          // onOpen={onOpen}
-          // logoText={"Horizon UI Dashboard PRO"}
-          // brandText={getActiveRoute(routes)}
-          // secondary={getActiveNavbar(routes)}
-          // message={getActiveNavbarText(routes)}
-          // fixed={fixed}
-          // {...rest}
+            // onOpen={onOpen}
+            // logoText={"Horizon UI Dashboard PRO"}
+            // brandText={getActiveRoute(routes)}
+            // secondary={getActiveNavbar(routes)}
+            // message={getActiveNavbarText(routes)}
+            // fixed={fixed}
+            // {...rest}
+            account={props.account}
           />
         </Box>
       </Portal>

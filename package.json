@@ -9,6 +9,7 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@truffle/hdwallet-provider": "^1.1.0",
+    "antd": "^4.20.2",
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.7.0",
     "babel-preset-es2015": "6.24.1",

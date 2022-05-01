@@ -5,7 +5,6 @@ import Web3 from "web3";
 import Dashboard from "./Layout";
 import { ChakraProvider } from "@chakra-ui/react";
 import DataContract from "../abis/DataContract.json";
-
 //Declare IPFS
 
 class App extends Component {

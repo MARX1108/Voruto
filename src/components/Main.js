@@ -1,19 +1,10 @@
 import {
-  Avatar,
   Box,
-  Flex,
-  FormLabel,
-  Icon,
-  Select,
-  SimpleGrid,
-  useColorModeValue,
-  Container,
   Stat,
   StatLabel,
   StatNumber,
   StatHelpText,
   StatArrow,
-  StatGroup,
 } from "@chakra-ui/react";
 import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
