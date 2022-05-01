@@ -39,7 +39,7 @@ export default function Dashboard(props) {
         minH="100vh"
         pt="50px"
       >
-        <Main />
+        <Main account={props.account} />
       </Box>
       {/* <Footer /> */}
     </Box>

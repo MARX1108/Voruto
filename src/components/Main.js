@@ -18,7 +18,7 @@ import {
 import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 
-export default function Main() {
+export default function Main(props) {
   return (
     <Box
       mx="100px"
@@ -36,7 +36,7 @@ export default function Main() {
           <Box mx="5" p="10">
             <Stat>
               <StatLabel>Balance</StatLabel>
-              <StatNumber>345,670 ETH</StatNumber>
+              <StatNumber>{props.account} ETH</StatNumber>
               <StatHelpText>
                 <StatArrow type="increase" />
                 23.36%

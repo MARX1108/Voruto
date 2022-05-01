@@ -12,7 +12,7 @@ import {
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 
-export default function AdminNavbar(props) {
+export default function Navbar(props) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -132,7 +132,7 @@ export default function AdminNavbar(props) {
               boxShadow: "none",
             }}
           >
-            Voruto Dashboard
+            Voruto
           </Link>
         </Box>
         <Box ms="auto" w={{ sm: "100%", md: "unset" }}></Box>
@@ -141,11 +141,3 @@ export default function AdminNavbar(props) {
     </Box>
   );
 }
-
-AdminNavbar.propTypes = {
-  brandText: PropTypes.string,
-  variant: PropTypes.string,
-  secondary: PropTypes.bool,
-  fixed: PropTypes.bool,
-  onOpen: PropTypes.func,
-};
