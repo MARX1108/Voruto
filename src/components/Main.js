@@ -1,4 +1,5 @@
 import {
+  Text,
   Box,
   Stat,
   StatLabel,
@@ -19,7 +20,7 @@ export default function Main(props) {
       // border={"5px solid"}
     >
       <Grid
-        templateRows="repeat(2, 1fr)"
+        templateRows="repeat(3, 1fr)"
         templateColumns="repeat(5, 1fr)"
         gap={4}
       >
@@ -43,7 +44,9 @@ export default function Main(props) {
 
         <GridItem colSpan={3} bg="white" borderRadius="25px" />
         <GridItem colSpan={2} bg="white" borderRadius="25px" />
-        <GridItem colSpan={3} bg="white" borderRadius="25px">
+        <GridItem colSpan={3} bg="white" borderRadius="25px" />
+
+        <GridItem colSpan={5} bg="white" borderRadius="25px">
           <Files
             files={props.files}
             captureFile={props.captureFile}

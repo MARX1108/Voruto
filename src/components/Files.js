@@ -1,5 +1,6 @@
 import moment from "moment";
 import React, { Component } from "react";
+import { Table } from "antd";
 
 import {
   Button,
@@ -9,7 +10,7 @@ import {
   StatNumber,
   StatHelpText,
   StatArrow,
-  Table,
+  // Table,
   Thead,
   Tbody,
   Tfoot,
@@ -18,12 +19,65 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Text,
 } from "@chakra-ui/react";
 import FilePicker from "chakra-ui-file-picker";
 export default function Files(props) {
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "fileName",
+      key: "name",
+      render: (text) => <a>{text}</a>,
+    },
+    // {
+    //   title: "Description",
+    //   dataIndex: "fileDescription",
+    //   key: "description",
+    // },
+    {
+      title: "Type",
+      dataIndex: "fileType",
+      key: "type",
+    },
+    {
+      title: "Size",
+      dataIndex: "fileSize",
+      key: "size",
+      render: (text) => <a>{convertBytes(text)}</a>,
+    },
+    {
+      title: "Date",
+      dataIndex: "uploadTime",
+      key: "date",
+      render: (text) => <a>{moment.unix(text).format("h:mm:ss A M/D/Y")}</a>,
+    },
+    {
+      title: "Owner",
+      dataIndex: "uploader",
+      key: "owner",
+    },
+    {
+      title: "operation",
+      dataIndex: "operation",
+      render: (_, record) => (
+        <Button
+          onClick={() => {
+            console.log(record);
+          }}
+        >
+          Borrow
+        </Button>
+      ),
+    },
+  ];
   return (
     <Box p="5">
       <Box p="3">
+        <Text fontSize="2xl" pb="3">
+          Data Market
+        </Text>
+
         <FilePicker
           onFileChange={(fileList) => {
             props.captureFile(fileList[0]);
@@ -34,37 +88,7 @@ export default function Files(props) {
         <Button onClick={() => props.uploadFile(" ")}>Upload</Button>
       </Box>
 
-      <TableContainer>
-        <Table size="sm">
-          <Thead>
-            <Tr>
-              <Th isNumeric>id</Th>
-              <Th>name</Th>
-              <Th>description</Th>
-              <Th>type</Th>
-              <Th>size</Th>
-              <Th>date</Th>
-              <Th>owner</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {props.files.map((file, key) => {
-              return (
-                <tr>
-                  <Td>{file.fileId}</Td>
-                  <Td>{file.fileName}</Td>
-                  <Td>{file.fileDescription}</Td>
-                  <Td>{file.fileType}</Td>
-                  <Td>{convertBytes(file.fileSize)}</Td>
-                  <Td>
-                    {moment.unix(file.uploadTime).format("h:mm:ss A M/D/Y")}
-                  </Td>
-                </tr>
-              );
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
+      <Table columns={columns} dataSource={props.files}></Table>
     </Box>
   );
 }

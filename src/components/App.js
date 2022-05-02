@@ -4,7 +4,7 @@ import { Portal, Box } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import DataContract from "../abis/DataContract.json";
 import Storage from "../abis/Storage.json";
-
+import "antd/dist/antd.css";
 import Navbar from "./Navbar";
 import Main from "./Main";
 const ipfsClient = require("ipfs-http-client");
