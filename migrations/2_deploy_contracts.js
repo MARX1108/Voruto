@@ -1,7 +1,7 @@
 const DataContract = artifacts.require("DataContract");
-const DStorage = artifacts.require("DStorage");
+const Storage = artifacts.require("Storage");
 
 module.exports = function (deployer) {
   deployer.deploy(DataContract);
-  deployer.deploy(DStorage);
+  deployer.deploy(Storage);
 };
