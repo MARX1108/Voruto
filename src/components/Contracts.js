@@ -1,18 +1,30 @@
 import moment from "moment";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Table, message } from "antd";
 
 import {
   Button,
   Box,
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  StatArrow,
   Text,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Code,
 } from "@chakra-ui/react";
-export default function Files(props) {
+
+import { Typography } from "antd";
+
+const { Paragraph } = Typography;
+
+export default function Contracts(props) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [path, setFilePath] = useState("");
+
   const columns = [
     {
       title: "Id",
@@ -43,8 +55,12 @@ export default function Files(props) {
                 .AccessData(record.Id)
                 .call({ from: props.account })
                 .then((res) => {
-                  if (res)
-                    message.error("Your Contract Is No Longer Effective!");
+                  if (res) {
+                    setFilePath(
+                      "https://ipfs.infura.io/ipfs/" + record.fileHash
+                    );
+                    onOpen();
+                  } else message.error("Your Contract Is No Longer Effective!");
                 });
             }}
           >
@@ -75,7 +91,35 @@ export default function Files(props) {
           Data Contracts
         </Text>
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Access Data</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box>
+              <Text>You can access the data at:</Text>
+              <Paragraph
+                copyable
+                style={{
+                  backgroundColor: "#F5F7FE",
+                  padding: "3px",
+                  marginTop: "5px",
+                  borderRadius: "5px",
+                }}
+              >
+                {path}
+              </Paragraph>
+            </Box>
+          </ModalBody>
 
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       <Table columns={columns} dataSource={props.contracts}></Table>
     </Box>
   );
