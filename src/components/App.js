@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Web3 from "web3";
-import { Portal, Box } from "@chakra-ui/react";
+import { Portal, Box, Button } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import DataContract from "../abis/DataContract.json";
 import Storage from "../abis/Storage.json";
@@ -88,6 +88,22 @@ class App extends Component {
     }
   }
 
+  // issueContract = (
+  //   owner,
+  //   length,
+  //   stakingBalance,
+  //   fileHash,
+  //   fileDescription
+  // ) => {
+  //   this.state.dataContract.methods
+  //     .OfferAContract(owner, fileDescription, length, stakingBalance, fileHash)
+  //     .send({ from: this.state.account })
+  //     .on("error", (e) => {
+  //       window.alert("Error");
+  //       this.setState({ loading: false });
+  //     });
+  // };
+
   captureFile = (file) => {
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
@@ -147,6 +163,7 @@ class App extends Component {
     this.state = {
       account: "",
       storage: null,
+      dataContract: null,
       files: [],
       loading: false,
       type: null,
@@ -154,6 +171,7 @@ class App extends Component {
     };
     this.uploadFile = this.uploadFile.bind(this);
     this.captureFile = this.captureFile.bind(this);
+    // this.issueContract = this.issueContract.bind(this);
   }
 
   render() {
@@ -192,10 +210,12 @@ class App extends Component {
               pt="50px"
             >
               <Main
+                account={this.state.account}
                 balance={this.state.balance}
                 files={this.state.files}
                 captureFile={this.state.captureFile}
                 uploadFile={this.state.uploadFile}
+                dataContract={this.state.dataContract}
               />
             </Box>
           </Box>

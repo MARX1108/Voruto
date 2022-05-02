@@ -48,9 +48,11 @@ export default function Main(props) {
 
         <GridItem colSpan={5} bg="white" borderRadius="25px">
           <Files
+            account={props.account}
             files={props.files}
             captureFile={props.captureFile}
             uploadFile={props.uploadFile}
+            dataContract={props.dataContract}
           ></Files>
         </GridItem>
       </Grid>

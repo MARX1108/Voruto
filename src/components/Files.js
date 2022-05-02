@@ -63,7 +63,26 @@ export default function Files(props) {
       render: (_, record) => (
         <Button
           onClick={() => {
-            console.log(record);
+            console.log(
+              record,
+              record.uploader,
+              record.fileDescription,
+              record.fileHash,
+              props.account
+            );
+            props.dataContract.methods
+              .OfferAContract(
+                record.uploader,
+                record.fileDescription,
+                3600,
+                10,
+                record.fileHash
+              )
+              .send({ from: props.account })
+              .on("error", (e) => {
+                window.alert("Error");
+                console.log(e);
+              });
           }}
         >
           Borrow
