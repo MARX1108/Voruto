@@ -29,15 +29,8 @@ contract DataContract {
         string fileHash
     );
 
-     event ContractSigned(
-        uint256 Id,
-        address payable owner,
-        address borrower,
-        string Description,
-        uint256 uploadTime,
-        bool effective,
-        string fileHash
-    ); 
+    event ContractSigned(uint256 Id, uint256 Date, string fileHash);
+
     constructor() public {}
 
     function OfferAContract(
@@ -75,7 +68,8 @@ contract DataContract {
         );
     }
 
-    // function SignAContract() public {
-
-    // }
+    function SignAContract(uint256 id) public {
+        contracts[id].signed = true;
+        emit ContractSigned(id, now, contracts[id].fileHash);
+    }
 }

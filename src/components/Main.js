@@ -44,7 +44,11 @@ export default function Main(props) {
         </GridItem>
 
         <GridItem colSpan={3} bg="white" borderRadius="25px">
-          <Contracts account={props.account} contracts={props.contracts} />
+          <Contracts
+            account={props.account}
+            contracts={props.contracts}
+            dataContract={props.dataContract}
+          />
         </GridItem>
         <GridItem colSpan={2} bg="white" borderRadius="25px" />
         <GridItem colSpan={3} bg="white" borderRadius="25px" />

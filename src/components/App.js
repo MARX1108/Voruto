@@ -199,8 +199,8 @@ class App extends Component {
                 account={this.state.account}
                 balance={this.state.balance}
                 files={this.state.files}
-                captureFile={this.state.captureFile}
-                uploadFile={this.state.uploadFile}
+                captureFile={this.captureFile}
+                uploadFile={this.uploadFile}
                 dataContract={this.state.dataContract}
               />
             </Box>

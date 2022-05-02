@@ -42,6 +42,13 @@ export default function Files(props) {
           <Button
             onClick={() => {
               console.log(record);
+              props.dataContract.methods
+                .SignAContract(record.Id)
+                .send({ from: props.account })
+                .on("error", (e) => {
+                  window.alert("Error");
+                  console.log(e);
+                });
             }}
           >
             Sign
