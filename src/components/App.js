@@ -61,7 +61,7 @@ class App extends Component {
       for (var i = contractCount; i >= 1; i--) {
         const contracts = await dataContract.methods.contracts(i).call();
         this.setState({
-          contracts: [...this.state.filcontracts, contracts],
+          contracts: [...this.state.contracts, contracts],
         });
       }
     } else {
@@ -87,22 +87,6 @@ class App extends Component {
       window.alert("Storage contract not deployed to detected network.");
     }
   }
-
-  // issueContract = (
-  //   owner,
-  //   length,
-  //   stakingBalance,
-  //   fileHash,
-  //   fileDescription
-  // ) => {
-  //   this.state.dataContract.methods
-  //     .OfferAContract(owner, fileDescription, length, stakingBalance, fileHash)
-  //     .send({ from: this.state.account })
-  //     .on("error", (e) => {
-  //       window.alert("Error");
-  //       this.setState({ loading: false });
-  //     });
-  // };
 
   captureFile = (file) => {
     const reader = new window.FileReader();
@@ -168,6 +152,7 @@ class App extends Component {
       loading: false,
       type: null,
       name: null,
+      contracts: [],
     };
     this.uploadFile = this.uploadFile.bind(this);
     this.captureFile = this.captureFile.bind(this);
@@ -210,6 +195,7 @@ class App extends Component {
               pt="50px"
             >
               <Main
+                contracts={this.state.contracts}
                 account={this.state.account}
                 balance={this.state.balance}
                 files={this.state.files}

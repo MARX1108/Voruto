@@ -10,6 +10,7 @@ import {
 import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Files from "./Files";
+import Contracts from "./Contracts";
 export default function Main(props) {
   return (
     <Box
@@ -42,7 +43,9 @@ export default function Main(props) {
           </Box>
         </GridItem>
 
-        <GridItem colSpan={3} bg="white" borderRadius="25px" />
+        <GridItem colSpan={3} bg="white" borderRadius="25px">
+          <Contracts account={props.account} contracts={props.contracts} />
+        </GridItem>
         <GridItem colSpan={2} bg="white" borderRadius="25px" />
         <GridItem colSpan={3} bg="white" borderRadius="25px" />
 
