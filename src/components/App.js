@@ -1,14 +1,12 @@
-//import storage from '../abis/storage.json'
 import React, { Component } from "react";
 import Web3 from "web3";
-
-import Dashboard from "./Layout";
+import { Portal, Box } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import DataContract from "../abis/DataContract.json";
-//Declare IPFS
 import Storage from "../abis/Storage.json";
-import create from "ipfs-http-client";
 
+import Navbar from "./Navbar";
+import Main from "./Main";
 const ipfsClient = require("ipfs-http-client");
 const ipfs = ipfsClient({
   host: "ipfs.infura.io",
@@ -91,8 +89,6 @@ class App extends Component {
   }
 
   captureFile = (file) => {
-    // event.preventDefault();
-    // const file = event.target.files[0];
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => {
@@ -168,13 +164,41 @@ class App extends Component {
             <p>Loading...</p>
           </div>
         ) : (
-          <Dashboard
-            account={this.state.account}
-            balance={this.state.balance}
-            files={this.state.files}
-            captureFile={this.captureFile}
-            uploadFile={this.uploadFile}
-          />
+          <Box
+            float="right"
+            minHeight="100vh"
+            height="100%"
+            overflow="auto"
+            position="relative"
+            maxHeight="100%"
+            w={{ base: "100%", xl: "calc( 100%)" }}
+            maxWidth={{ base: "100%", xl: "calc( 100%)" }}
+            transition="all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)"
+            transitionDuration=".2s, .2s, .35s"
+            transitionProperty="top, bottom, width"
+            transitionTimingFunction="linear, linear, ease"
+            backgroundColor={"#F5F7FE"}
+          >
+            <Portal>
+              <Box>
+                <Navbar account={this.state.account} />
+              </Box>
+            </Portal>
+            <Box
+              mx="auto"
+              p={{ base: "20px", md: "30px" }}
+              pe="20px"
+              minH="100vh"
+              pt="50px"
+            >
+              <Main
+                balance={this.state.balance}
+                files={this.state.files}
+                captureFile={this.state.captureFile}
+                uploadFile={this.state.uploadFile}
+              />
+            </Box>
+          </Box>
         )}
       </ChakraProvider>
     );

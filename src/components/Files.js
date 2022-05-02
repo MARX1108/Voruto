@@ -48,7 +48,7 @@ export default function Files(props) {
             </Tr>
           </Thead>
           <Tbody>
-            {/* {props.files.map((file, key) => {
+            {props.files.map((file, key) => {
               return (
                 <tr>
                   <Td>{file.fileId}</Td>
@@ -61,12 +61,7 @@ export default function Files(props) {
                   </Td>
                 </tr>
               );
-            })} */}
-            <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr>
+            })}
           </Tbody>
         </Table>
       </TableContainer>
