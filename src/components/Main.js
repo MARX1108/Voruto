@@ -18,7 +18,6 @@ export default function Main(props) {
       p={{ base: "20px", md: "30px" }}
       minH="100vh"
       mt="70px"
-      // border={"5px solid"}
     >
       <Grid
         templateRows="repeat(3, 1fr)"

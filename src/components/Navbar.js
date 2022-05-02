@@ -10,6 +10,9 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
+import { Typography } from "antd";
+
+const { Paragraph } = Typography;
 
 export default function Navbar(props) {
   const [scrolled, setScrolled] = useState(false);
@@ -133,9 +136,9 @@ export default function Navbar(props) {
           >
             Voruto
           </Link>
-          <Text fontSize="sm" color="grey">
+          <Paragraph copyable style={{ color: "grey" }}>
             {props.account}
-          </Text>
+          </Paragraph>
         </Box>
         <Box ms="auto" w={{ sm: "100%", md: "unset" }}></Box>
       </Flex>

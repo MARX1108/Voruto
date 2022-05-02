@@ -70,6 +70,11 @@ contract DataContract {
 
     function SignAContract(uint256 id) public {
         contracts[id].signed = true;
+        contracts[id].effective = true;
         emit ContractSigned(id, now, contracts[id].fileHash);
+    }
+
+    function AccessData(uint256 id) public returns (bool) {
+        return contracts[id].effective == true;
     }
 }

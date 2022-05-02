@@ -1,6 +1,6 @@
 import moment from "moment";
 import React, { Component } from "react";
-import { Table } from "antd";
+import { Table, message } from "antd";
 
 import {
   Button,
@@ -37,7 +37,19 @@ export default function Files(props) {
       dataIndex: "signed",
       render: (_, record) =>
         record.signed ? (
-          <Text>Signed</Text>
+          <Button
+            onClick={() => {
+              props.dataContract.methods
+                .AccessData(record.Id)
+                .call({ from: props.account })
+                .then((res) => {
+                  if (res)
+                    message.error("Your Contract Is No Longer Effective!");
+                });
+            }}
+          >
+            Access
+          </Button>
         ) : (
           <Button
             onClick={() => {
