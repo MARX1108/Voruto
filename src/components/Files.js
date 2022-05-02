@@ -2,6 +2,7 @@ import moment from "moment";
 import React, { Component } from "react";
 
 import {
+  Button,
   Box,
   Stat,
   StatLabel,
@@ -19,7 +20,6 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import FilePicker from "chakra-ui-file-picker";
-import { Button } from "antd";
 export default function Files(props) {
   return (
     <Box p="5">
@@ -27,12 +27,11 @@ export default function Files(props) {
         <FilePicker
           onFileChange={(fileList) => {
             props.captureFile(fileList[0]);
-            // props.uploadFile("");
           }}
           placeholder="Upload Your Data"
           hideClearButton={true}
         />
-        <Button onClick={() => props.uploadFile("")}>Upload</Button>
+        <Button onClick={() => props.uploadFile(" ")}>Upload</Button>
       </Box>
 
       <TableContainer>

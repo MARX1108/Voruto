@@ -1,4 +1,4 @@
-//import DStorage from '../abis/DStorage.json'
+//import storage from '../abis/storage.json'
 import React, { Component } from "react";
 import Web3 from "web3";
 
@@ -70,10 +70,10 @@ class App extends Component {
       window.alert("DataContract not deployed to detected network.");
     }
 
-    // Load DappToken
-    const storageData = Storage.networks[networkId];
-    if (storageData) {
-      const storage = new web3.eth.Contract(Storage.abi, storageData.address);
+    const StorageData = Storage.networks[networkId];
+    if (StorageData) {
+      // Assign contract
+      const storage = new web3.eth.Contract(Storage.abi, StorageData.address);
       this.setState({ storage });
       // Get files amount
       const filesCount = await storage.methods.fileCount().call();
@@ -86,12 +86,14 @@ class App extends Component {
         });
       }
     } else {
-      window.alert("storage contract not deployed to detected network.");
+      window.alert("Storage contract not deployed to detected network.");
     }
   }
-  captureFile = (file) => {
-    const reader = new window.FileReader();
 
+  captureFile = (file) => {
+    // event.preventDefault();
+    // const file = event.target.files[0];
+    const reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => {
       this.setState({
@@ -103,12 +105,16 @@ class App extends Component {
     };
   };
 
-  async uploadFile(description) {
+  uploadFile = (description) => {
+    console.log("Submitting file to IPFS...");
+
     // Add file to the IPFS
-    try {
-      const result = await ipfs.add(this.state.buffer);
-      console.log(result[0].hash);
-      console.log(result[0].size);
+    ipfs.add(this.state.buffer, (error, result) => {
+      console.log("IPFS result", result.size);
+      if (error) {
+        console.error(error);
+        return;
+      }
 
       this.setState({ loading: true });
       // Assign value for the file without extension
@@ -136,15 +142,20 @@ class App extends Component {
           window.alert("Error");
           this.setState({ loading: false });
         });
-    } catch (error) {
-      console.error("IPFS error ", error);
-    }
-  }
+    });
+  };
 
   //Set states
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      account: "",
+      storage: null,
+      files: [],
+      loading: false,
+      type: null,
+      name: null,
+    };
     this.uploadFile = this.uploadFile.bind(this);
     this.captureFile = this.captureFile.bind(this);
   }
