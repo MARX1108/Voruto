@@ -58,7 +58,12 @@ export default function Main(props) {
             contracts={props.contracts}
           />
         </GridItem>
-        <GridItem colSpan={2} bg="white" borderRadius="25px">
+        <GridItem
+          colSpan={2}
+          bg="white"
+          borderRadius="25px"
+          bgGradient="linear-gradient(135deg, rgba(171,130,255,1) 0%, rgba(79,73,217,1)100%)"
+        >
           <AccessHistory
             account={props.account}
             dataContract={props.dataContract}

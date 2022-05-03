@@ -25,9 +25,13 @@ export default function AccessHistory(props) {
   return (
     <Box p="5">
       <Box p="3">
-        <Text fontSize="2xl" pb="3">
-          Access History
+        <Text fontSize="2xl" pb="3" color={"white"}>
+          Access History{" "}
           <IconButton
+            backgroundColor={"#DE5D9B"}
+            _hover={{
+              backgroundColor: "#BF3678",
+            }}
             aria-label="Refresh"
             icon={<RedoOutlined />}
             size="sm"
@@ -47,16 +51,22 @@ export default function AccessHistory(props) {
         <Table size="sm">
           <Thead>
             <Tr>
-              <Th>Contract #</Th>
-              <Th>Acess Date</Th>
+              <Th color={"white"}>Contract #</Th>
+              <Th color={"white"}>Access Date</Th>
             </Tr>
           </Thead>
           <Tbody>
             {history.map((item, i) => {
               return [
-                <Tr>
+                // <Tr>
+                //   <Td color={"white"} border="none">
+                //     Your Contract #{item} Is Accessed At 2021.4.3!
+                //   </Td>
+                // </Tr>,
+
+                <Tr color={"white"}>
                   <Td>{item}</Td>
-                  <Td>2021.4.32</Td>
+                  <Td>2021.4.3</Td>
                 </Tr>,
               ];
             })}

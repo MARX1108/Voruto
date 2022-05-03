@@ -189,10 +189,8 @@ export default function Contracts(props) {
               <Box px={"5"} py={"5"} textAlign={"center"}>
                 {contract.signed ? (
                   <>
-                    <Text fontSize="md">You can access the data at:</Text>
                     <Button
                       py={"2"}
-                      size={"sm"}
                       onClick={() => {
                         props.dataContract.methods
                           .AccessData(contract.Id)
@@ -210,7 +208,7 @@ export default function Contracts(props) {
                           });
                       }}
                     >
-                      Show
+                      Access Data
                     </Button>
                   </>
                 ) : (
@@ -230,17 +228,21 @@ export default function Contracts(props) {
                 )}
                 <Box pt={"2"}>
                   {path.length !== 0 ? (
-                    <Paragraph
-                      copyable
-                      style={{
-                        backgroundColor: "#F5F7FE",
-                        padding: "3px",
-                        marginTop: "5px",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      {path}
-                    </Paragraph>
+                    <>
+                      <Text fontSize="md">You can access the data at:</Text>
+
+                      <Paragraph
+                        copyable
+                        style={{
+                          backgroundColor: "#F5F7FE",
+                          padding: "3px",
+                          marginTop: "5px",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        {path}
+                      </Paragraph>
+                    </>
                   ) : null}
                 </Box>
               </Box>
