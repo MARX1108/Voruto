@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import Web3 from "web3";
-import { Portal, Box, Button } from "@chakra-ui/react";
+import {
+  Portal,
+  Box,
+  Button,
+  Flex,
+  Link,
+  IconButton,
+  Center,
+} from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import DataContract from "../abis/DataContract.json";
 import Storage from "../abis/Storage.json";
@@ -9,6 +17,7 @@ import Bank from "../abis/Bank.json";
 import "antd/dist/antd.css";
 import Navbar from "./Navbar";
 import Main from "./Main";
+import Footer from "./Footer";
 const ipfsClient = require("ipfs-http-client");
 const ipfs = ipfsClient({
   host: "ipfs.infura.io",
@@ -215,19 +224,11 @@ class App extends Component {
                 uploadFile={this.uploadFile}
                 dataContract={this.state.dataContract}
               />
-              {/* <Button
-                onClick={() => {
-                  this.state.bank.methods
-                    .receive(10000)
-                    .send({ from: this.state.account, value: "10000" })
-                    .on("error", (e) => {
-                      window.alert("Error");
-                      console.log(e);
-                    });
-                }}
-              >
-                Test2
-              </Button> */}
+            </Box>
+            <Box mx="auto" p={{ base: "10px" }}>
+              <Center>
+                <Footer></Footer>
+              </Center>
             </Box>
           </Box>
         )}
