@@ -11,7 +11,7 @@ import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Files from "./Files";
 import AccessHistory from "./AccessHistory";
-
+import TransactionHistory from "./TransactionHistory";
 import Contracts from "./Contracts";
 export default function Main(props) {
   return (
@@ -54,7 +54,13 @@ export default function Main(props) {
           />
         </GridItem>
 
-        <GridItem colSpan={3} bg="white" borderRadius="25px" />
+        <GridItem colSpan={3} bg="white" borderRadius="25px">
+          <TransactionHistory
+            account={props.account}
+            dataContract={props.dataContract}
+            contracts={props.contracts}
+          />
+        </GridItem>
 
         <GridItem colSpan={5} bg="white" borderRadius="25px">
           <Files

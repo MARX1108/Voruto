@@ -43,8 +43,14 @@ export default function Contracts(props) {
       key: "stakingBalance",
     },
     {
-      title: "Date",
+      title: "Offer Date",
       dataIndex: "createdAt",
+      key: "date",
+      render: (text) => <a>{moment.unix(text).format("h:mm:ss A M/D/Y")}</a>,
+    },
+    {
+      title: "Signed Date",
+      dataIndex: "signedAt",
       key: "date",
       render: (text) => <a>{moment.unix(text).format("h:mm:ss A M/D/Y")}</a>,
     },

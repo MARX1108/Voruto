@@ -12,7 +12,6 @@ import {
 import { ChakraProvider } from "@chakra-ui/react";
 import DataContract from "../abis/DataContract.json";
 import Storage from "../abis/Storage.json";
-import Bank from "../abis/Bank.json";
 
 import "antd/dist/antd.css";
 import Navbar from "./Navbar";
@@ -98,14 +97,14 @@ class App extends Component {
       window.alert("Storage contract not deployed to detected network.");
     }
 
-    const BankData = Bank.networks[networkId];
-    if (BankData) {
-      // Assign contract
-      const bank = new web3.eth.Contract(Bank.abi, BankData.address);
-      this.setState({ bank });
-    } else {
-      window.alert("Bank contract not deployed to detected network.");
-    }
+    // const BankData = Bank.networks[networkId];
+    // if (BankData) {
+    //   // Assign contract
+    //   const bank = new web3.eth.Contract(Bank.abi, BankData.address);
+    //   this.setState({ bank });
+    // } else {
+    //   window.alert("Bank contract not deployed to detected network.");
+    // }
   }
 
   captureFile = (file) => {

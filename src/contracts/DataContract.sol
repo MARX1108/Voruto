@@ -16,6 +16,7 @@ contract DataContract {
         address borrower;
         string Description;
         uint256 createdAt;
+        uint256 signedAt;
         bool effective;
         bool signed;
         uint256 length;
@@ -28,7 +29,7 @@ contract DataContract {
         address payable owner,
         address borrower,
         string Description,
-        uint256 uploadTime,
+        uint256 signedAt,
         bool effective,
         string fileHash
     );
@@ -53,6 +54,7 @@ contract DataContract {
             msg.sender,
             _fileDescription,
             now,
+            0,
             false,
             false,
             _length,
@@ -85,6 +87,7 @@ contract DataContract {
 
     function SignAContract(uint256 id) public {
         contracts[id].signed = true;
+        contracts[id].signedAt = now;
         contracts[id].effective = true;
         contracts[id].owner.transfer(contracts[id].stakingBalance);
         emit ContractSigned(id, now, contracts[id].fileHash);
