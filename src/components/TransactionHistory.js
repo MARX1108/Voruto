@@ -17,7 +17,7 @@ import {
   TableContainer,
   IconButton,
 } from "@chakra-ui/react";
-import { RedoOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 
 export default function AccessHistory(props) {
   return (
@@ -38,11 +38,13 @@ export default function AccessHistory(props) {
           </Thead>
           <Tbody>
             {props.contracts.map((item, i) => {
-              return item.owner === props.account
+              console.log(item.signedAt);
+              return item.owner === props.account && item.signedAt !== "0"
                 ? [
                     <Tr>
                       <Td>{item.Id}</Td>
-                      <Td>
+                      <Td color={"green"} fontWeight="bold">
+                        +{/* <PlusOutlined /> */}
                         {window.web3.utils.fromWei(
                           item.stakingBalance,
                           "ether"
