@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { Component, useState } from "react";
 import { Table, message } from "antd";
+import { CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 
 import {
   Button,
@@ -15,9 +16,16 @@ import {
   ModalBody,
   ModalCloseButton,
   Code,
+  HStack,
+  SimpleGrid,
+  useBreakpointValue,
+  useColorModeValue,
+  Stack,
+  Heading,
+  Flex,
 } from "@chakra-ui/react";
 
-import { Typography } from "antd";
+import { Typography, Card } from "antd";
 
 const { Paragraph } = Typography;
 
@@ -96,7 +104,7 @@ export default function Contracts(props) {
     },
   ];
   return (
-    <Box p="5">
+    <Box p="5" height={"100%"}>
       <Box p="3">
         <Text fontSize="2xl" pb="3">
           Data Contracts
@@ -131,7 +139,58 @@ export default function Contracts(props) {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <Table columns={columns} dataSource={props.contracts}></Table>
+
+      <SimpleGrid
+        overflowY={"scroll"}
+        columns={{ base: 1, md: 4 }}
+        gap={{ base: "5", md: "6" }}
+        p="10px"
+        height={"70%"}
+      >
+        {props.contracts.map((item, i) => {
+          if (item.borrower === props.account || item.owner === props.account) {
+            return (
+              <Box
+                px={{ base: "4", md: "6" }}
+                py={{ base: "5", md: "6" }}
+                bg="bg-surface"
+                borderRadius="lg"
+                border="2px solid #F5F7FE"
+                _hover={{
+                  border: "2px solid #8064EE",
+                  boxShadow: "5px 5px 20px rgba(0, 0, 0, 0.1)",
+                  transitionDuration: " 0.4s, 0.4s, 0.4s, 0s",
+                }}
+                onClick={() => {
+                  onOpen();
+                }}
+              >
+                <Stack>
+                  {item.signed ? (
+                    <Text fontSize="sm" color="green">
+                      <CheckCircleOutlined /> Effective
+                    </Text>
+                  ) : (
+                    <Text fontSize="sm" color="#8064EE">
+                      <ClockCircleOutlined /> Offered
+                    </Text>
+                  )}
+
+                  <Heading size={"sm"}>contract {item.Id}</Heading>
+                  <Text fontSize="sm" color="grey">
+                    ${window.web3.utils.fromWei(item.stakingBalance, "ether")}{" "}
+                    ETH
+                  </Text>
+                </Stack>
+              </Box>
+            );
+          }
+        })}
+
+        {}
+      </SimpleGrid>
+
+      {/* <Table columns={columns} dataSource={props.contracts}></Table> */}
     </Box>
   );
 }
