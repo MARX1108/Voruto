@@ -1,6 +1,6 @@
 import moment from "moment";
 import React, { Component, useState } from "react";
-import { Table, message } from "antd";
+import { message } from "antd";
 import { CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 
 import {
@@ -23,6 +23,15 @@ import {
   Stack,
   Heading,
   Flex,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
 } from "@chakra-ui/react";
 
 import { Typography, Card } from "antd";
@@ -32,7 +41,7 @@ const { Paragraph } = Typography;
 export default function Contracts(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [path, setFilePath] = useState("");
-
+  const [contract, setContract] = useState([]);
   const columns = [
     {
       title: "Id",
@@ -94,7 +103,6 @@ export default function Contracts(props) {
                 .send({ from: props.account })
                 .on("error", (e) => {
                   window.alert("Error");
-                  console.log(e);
                 });
             }}
           >
@@ -113,22 +121,116 @@ export default function Contracts(props) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Access Data</ModalHeader>
+          <ModalHeader textAlign={"center"}>Contract Details</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Box>
-              <Text>You can access the data at:</Text>
-              <Paragraph
-                copyable
-                style={{
-                  backgroundColor: "#F5F7FE",
-                  padding: "3px",
-                  marginTop: "5px",
-                  borderRadius: "5px",
-                }}
-              >
-                {path}
-              </Paragraph>
+              <TableContainer>
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Item</Th>
+                      <Th>Value</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr>
+                      <Td>Contract ID</Td>
+                      <Td>{contract.Id}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td>Description</Td>
+                      <Td>{contract.description}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td>Stake</Td>
+                      <Td>{contract.stakingBalance} Wei</Td>
+                    </Tr>
+
+                    <Tr>
+                      <Td>Effective Length</Td>
+                      <Td>{contract.length}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td>Data Owner</Td>
+                      <Td>{contract.owner}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td>Data Borrower</Td>
+                      <Td>{contract.borrower}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td>Creation Date</Td>
+                      <Td>
+                        {moment
+                          .unix(contract.createdAt)
+                          .format("h:mm:ss A M/D/Y")}
+                      </Td>
+                    </Tr>
+                  </Tbody>
+                  <Tfoot>
+                    <Tr>
+                      <Th>Status</Th>
+
+                      {contract.signed ? (
+                        <Th color="green">
+                          <ClockCircleOutlined /> Effective
+                        </Th>
+                      ) : (
+                        <Th color="#8064EE">
+                          <ClockCircleOutlined /> Offered & To Be Signed
+                        </Th>
+                      )}
+                    </Tr>
+                  </Tfoot>
+                </Table>
+              </TableContainer>
+
+              <Box px={"5"} py={"5"} textAlign={"center"}>
+                <Text fontSize="md">You can access the data at:</Text>
+                {contract.signed ? (
+                  <Button
+                    py={"2"}
+                    size={"sm"}
+                    onClick={() => {
+                      props.dataContract.methods
+                        .AccessData(contract.Id)
+                        .send({ from: props.account })
+                        .then((res) => {
+                          if (res) {
+                            setFilePath(
+                              "https://ipfs.infura.io/ipfs/" + contract.fileHash
+                            );
+                          } else
+                            message.error(
+                              "Your Contract Is No Longer Effective!"
+                            );
+                        });
+                    }}
+                  >
+                    Show
+                  </Button>
+                ) : (
+                  <Button size={"sm"} disabled>
+                    Your Contract Is Not Signed Yet
+                  </Button>
+                )}
+                <Box pt={"2"}>
+                  {path.length !== 0 ? (
+                    <Paragraph
+                      copyable
+                      style={{
+                        backgroundColor: "#F5F7FE",
+                        padding: "3px",
+                        marginTop: "5px",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      {path}
+                    </Paragraph>
+                  ) : null}
+                </Box>
+              </Box>
             </Box>
           </ModalBody>
 
@@ -163,6 +265,7 @@ export default function Contracts(props) {
                 }}
                 onClick={() => {
                   onOpen();
+                  setContract(item);
                 }}
               >
                 <Stack>
