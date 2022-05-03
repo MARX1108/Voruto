@@ -32,10 +32,15 @@ export default function Contracts(props) {
       key: "id",
       render: (text) => <a>{text}</a>,
     },
+    // {
+    //   title: "Borrower",
+    //   dataIndex: "borrower",
+    //   key: "borrower",
+    // },
     {
-      title: "Borrower",
-      dataIndex: "borrower",
-      key: "borrower",
+      title: "Balance",
+      dataIndex: "stakingBalance",
+      key: "stakingBalance",
     },
     {
       title: "Date",

@@ -86,7 +86,7 @@ contract DataContract {
     function SignAContract(uint256 id) public {
         contracts[id].signed = true;
         contracts[id].effective = true;
-        msg.sender.transfer(contracts[id].stakingBalance);
+        contracts[id].owner.transfer(contracts[id].stakingBalance);
         emit ContractSigned(id, now, contracts[id].fileHash);
     }
 

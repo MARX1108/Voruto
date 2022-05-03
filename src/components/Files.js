@@ -77,7 +77,10 @@ export default function Files(props) {
                 3600,
                 record.fileHash
               )
-              .send({ from: props.account, value: 10000 })
+              .send({
+                from: props.account,
+                value: window.web3.utils.toWei("1", "ether"),
+              })
               .on("error", (e) => {
                 window.alert("Error");
                 console.log(e);
