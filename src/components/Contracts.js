@@ -56,9 +56,6 @@ export default function Contracts(props) {
                 .send({ from: props.account })
                 .then((res) => {
                   if (res) {
-                    console.log(record.Id);
-                    console.log(res);
-
                     setFilePath(
                       "https://ipfs.infura.io/ipfs/" + record.fileHash
                     );

@@ -75,14 +75,21 @@ export default function Files(props) {
                 record.uploader,
                 record.fileDescription,
                 3600,
-                10,
                 record.fileHash
               )
-              .send({ from: props.account })
+              .send({ from: props.account, value: 10000 })
               .on("error", (e) => {
                 window.alert("Error");
                 console.log(e);
               });
+
+            // props.dataContract.methods
+            //   .deposit(10)
+            //   .send({ from: props.account })
+            //   .on("error", (e) => {
+            //     window.alert("Error");
+            //     console.log(e);
+            //   });
           }}
         >
           Borrow
@@ -96,7 +103,19 @@ export default function Files(props) {
         <Text fontSize="2xl" pb="3">
           Data Market
         </Text>
-
+        <Button
+          onClick={() => {
+            props.dataContract.methods
+              .deposit(100000)
+              .send({ from: props.account })
+              .on("error", (e) => {
+                window.alert("Error");
+                console.log(e);
+              });
+          }}
+        >
+          Test
+        </Button>
         <FilePicker
           onFileChange={(fileList) => {
             props.captureFile(fileList[0]);

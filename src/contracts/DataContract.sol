@@ -6,6 +6,10 @@ contract DataContract {
     uint256 public contractCount = 0;
     mapping(uint256 => Contract) public contracts;
     uint256[] public temp;
+
+    address[] public stakers;
+    mapping(address => uint256) public stakingBalance;
+
     struct Contract {
         uint256 Id;
         address payable owner;
@@ -37,9 +41,8 @@ contract DataContract {
         address payable _owner,
         string memory _fileDescription,
         uint256 _length,
-        uint256 _stakingBalance,
         string memory _fileHash
-    ) public {
+    ) public payable {
         // Increment file id
         contractCount++;
 
@@ -53,7 +56,7 @@ contract DataContract {
             false,
             false,
             _length,
-            _stakingBalance,
+            msg.value,
             _fileHash
         );
         // Trigger an event
@@ -68,9 +71,22 @@ contract DataContract {
         );
     }
 
+    // function deposit(uint256 amount) public payable {
+    //     require(msg.value == amount);
+    // }
+
+    // function withdraw() public {
+    //     msg.sender.transfer(address(this).balance);
+    // }
+
+    // function getBalance() public view returns (uint256) {
+    //     return address(this).balance;
+    // }
+
     function SignAContract(uint256 id) public {
         contracts[id].signed = true;
         contracts[id].effective = true;
+        msg.sender.transfer(contracts[id].stakingBalance);
         emit ContractSigned(id, now, contracts[id].fileHash);
     }
 

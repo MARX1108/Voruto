@@ -4,6 +4,8 @@ import { Portal, Box, Button } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import DataContract from "../abis/DataContract.json";
 import Storage from "../abis/Storage.json";
+import Bank from "../abis/Bank.json";
+
 import "antd/dist/antd.css";
 import Navbar from "./Navbar";
 import Main from "./Main";
@@ -64,7 +66,6 @@ class App extends Component {
           contracts: [...this.state.contracts, contracts],
         });
       }
-
     } else {
       window.alert("DataContract not deployed to detected network.");
     }
@@ -86,6 +87,15 @@ class App extends Component {
       }
     } else {
       window.alert("Storage contract not deployed to detected network.");
+    }
+
+    const BankData = Bank.networks[networkId];
+    if (BankData) {
+      // Assign contract
+      const bank = new web3.eth.Contract(Bank.abi, BankData.address);
+      this.setState({ bank });
+    } else {
+      window.alert("Bank contract not deployed to detected network.");
     }
   }
 
@@ -154,6 +164,7 @@ class App extends Component {
       type: null,
       name: null,
       contracts: [],
+      bank: null,
     };
     this.uploadFile = this.uploadFile.bind(this);
     this.captureFile = this.captureFile.bind(this);
@@ -204,6 +215,19 @@ class App extends Component {
                 uploadFile={this.uploadFile}
                 dataContract={this.state.dataContract}
               />
+              {/* <Button
+                onClick={() => {
+                  this.state.bank.methods
+                    .receive(10000)
+                    .send({ from: this.state.account, value: "10000" })
+                    .on("error", (e) => {
+                      window.alert("Error");
+                      console.log(e);
+                    });
+                }}
+              >
+                Test2
+              </Button> */}
             </Box>
           </Box>
         )}
