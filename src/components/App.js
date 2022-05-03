@@ -64,6 +64,7 @@ class App extends Component {
           contracts: [...this.state.contracts, contracts],
         });
       }
+
     } else {
       window.alert("DataContract not deployed to detected network.");
     }

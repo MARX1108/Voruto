@@ -10,15 +10,12 @@ import {
 import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Files from "./Files";
+import AccessHistory from "./AccessHistory";
+
 import Contracts from "./Contracts";
 export default function Main(props) {
   return (
-    <Box
-      mx="100px"
-      p={{ base: "20px", md: "30px" }}
-      minH="100vh"
-      mt="70px"
-    >
+    <Box mx="100px" p={{ base: "20px", md: "30px" }} minH="100vh" mt="70px">
       <Grid
         templateRows="repeat(3, 1fr)"
         templateColumns="repeat(5, 1fr)"
@@ -49,7 +46,14 @@ export default function Main(props) {
             dataContract={props.dataContract}
           />
         </GridItem>
-        <GridItem colSpan={2} bg="white" borderRadius="25px" />
+
+        <GridItem colSpan={2} bg="white" borderRadius="25px">
+          <AccessHistory
+            account={props.account}
+            dataContract={props.dataContract}
+          />
+        </GridItem>
+
         <GridItem colSpan={3} bg="white" borderRadius="25px" />
 
         <GridItem colSpan={5} bg="white" borderRadius="25px">

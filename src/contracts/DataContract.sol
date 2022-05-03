@@ -2,10 +2,10 @@ pragma solidity ^0.5.0;
 
 contract DataContract {
     string public name = "Data Contract";
-    address[] public borrowers;
+    uint256[] public accessHistory;
     uint256 public contractCount = 0;
     mapping(uint256 => Contract) public contracts;
-
+    uint256[] public temp;
     struct Contract {
         uint256 Id;
         address payable owner;
@@ -75,6 +75,13 @@ contract DataContract {
     }
 
     function AccessData(uint256 id) public returns (bool) {
-        return contracts[id].effective == true;
+        if (contracts[id].effective == true) {
+            accessHistory.push(id);
+            return true;
+        } else return false;
+    }
+
+    function getAccessHistory() public returns (uint256[] memory) {
+        return accessHistory;
     }
 }

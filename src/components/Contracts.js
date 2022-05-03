@@ -53,9 +53,12 @@ export default function Contracts(props) {
             onClick={() => {
               props.dataContract.methods
                 .AccessData(record.Id)
-                .call({ from: props.account })
+                .send({ from: props.account })
                 .then((res) => {
                   if (res) {
+                    console.log(record.Id);
+                    console.log(res);
+
                     setFilePath(
                       "https://ipfs.infura.io/ipfs/" + record.fileHash
                     );
