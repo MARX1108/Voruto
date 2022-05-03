@@ -1,7 +1,7 @@
 import moment from "moment";
 import React, { Component } from "react";
 import { Table } from "antd";
-
+import DataUploadModal from "./DataUploadModal";
 import {
   Button,
   Box,
@@ -98,14 +98,10 @@ export default function Files(props) {
         <Text fontSize="2xl" pb="3">
           Data Market
         </Text>
-        <FilePicker
-          onFileChange={(fileList) => {
-            props.captureFile(fileList[0]);
-          }}
-          placeholder="Upload Your Data"
-          hideClearButton={true}
+        <DataUploadModal
+          captureFile={props.captureFile}
+          uploadFile={props.uploadFile}
         />
-        <Button onClick={() => props.uploadFile(" ")}>Upload</Button>
       </Box>
 
       <Table columns={columns} dataSource={props.files}></Table>
