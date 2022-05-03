@@ -17,7 +17,7 @@ export default function Main(props) {
   return (
     <Box mx="100px" p={{ base: "20px", md: "30px" }} minH="100vh" mt="70px">
       <Grid
-        templateRows="300px repeat(3, 1fr)"
+        templateRows="300px repeat(2, 1fr)"
         templateColumns="repeat(5, 1fr)"
         gap={4}
       >
