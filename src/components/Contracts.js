@@ -187,32 +187,45 @@ export default function Contracts(props) {
               </TableContainer>
 
               <Box px={"5"} py={"5"} textAlign={"center"}>
-                <Text fontSize="md">You can access the data at:</Text>
                 {contract.signed ? (
+                  <>
+                    <Text fontSize="md">You can access the data at:</Text>
+                    <Button
+                      py={"2"}
+                      size={"sm"}
+                      onClick={() => {
+                        props.dataContract.methods
+                          .AccessData(contract.Id)
+                          .send({ from: props.account })
+                          .then((res) => {
+                            if (res) {
+                              setFilePath(
+                                "https://ipfs.infura.io/ipfs/" +
+                                  contract.fileHash
+                              );
+                            } else
+                              message.error(
+                                "Your Contract Is No Longer Effective!"
+                              );
+                          });
+                      }}
+                    >
+                      Show
+                    </Button>
+                  </>
+                ) : (
                   <Button
-                    py={"2"}
-                    size={"sm"}
                     onClick={() => {
                       props.dataContract.methods
-                        .AccessData(contract.Id)
+                        .SignAContract(contract.Id)
                         .send({ from: props.account })
-                        .then((res) => {
-                          if (res) {
-                            setFilePath(
-                              "https://ipfs.infura.io/ipfs/" + contract.fileHash
-                            );
-                          } else
-                            message.error(
-                              "Your Contract Is No Longer Effective!"
-                            );
+                        .on("error", (e) => {
+                          window.alert("Error");
                         });
+                      window.location.reload();
                     }}
                   >
-                    Show
-                  </Button>
-                ) : (
-                  <Button size={"sm"} disabled>
-                    Your Contract Is Not Signed Yet
+                    Sign A Contract
                   </Button>
                 )}
                 <Box pt={"2"}>
