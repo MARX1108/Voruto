@@ -28,9 +28,11 @@ export default function AccessHistory(props) {
         <Text fontSize="2xl" pb="3" color={"white"}>
           Access History{" "}
           <IconButton
-            backgroundColor={"#DE5D9B"}
+            color={"rgba(171,130,255,1)"}
+            backgroundColor={"white"}
             _hover={{
-              backgroundColor: "#BF3678",
+              backgroundColor: "rgba(171,130,255,1)",
+              color: "white",
             }}
             aria-label="Refresh"
             icon={<RedoOutlined />}
