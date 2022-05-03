@@ -140,7 +140,7 @@ export default function Contracts(props) {
                     </Tr>
                     <Tr>
                       <Td>Description</Td>
-                      <Td>{contract.description}</Td>
+                      <Td>{contract.Description}</Td>
                     </Tr>
                     <Tr>
                       <Td>Stake</Td>

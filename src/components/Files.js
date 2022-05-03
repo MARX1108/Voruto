@@ -1,7 +1,8 @@
 import moment from "moment";
 import React, { Component } from "react";
-import { Table } from "antd";
+// import { Table } from "antd";
 import DataUploadModal from "./DataUploadModal";
+import ContractOfferingModal from "./ContractOfferingModal";
 import {
   Button,
   Box,
@@ -10,7 +11,7 @@ import {
   StatNumber,
   StatHelpText,
   StatArrow,
-  // Table,
+  Table,
   Thead,
   Tbody,
   Tfoot,
@@ -21,7 +22,6 @@ import {
   TableContainer,
   Text,
 } from "@chakra-ui/react";
-import FilePicker from "chakra-ui-file-picker";
 export default function Files(props) {
   const columns = [
     {
@@ -63,13 +63,6 @@ export default function Files(props) {
       render: (_, record) => (
         <Button
           onClick={() => {
-            console.log(
-              record,
-              record.uploader,
-              record.fileDescription,
-              record.fileHash,
-              props.account
-            );
             props.dataContract.methods
               .OfferAContract(
                 record.uploader,
@@ -103,8 +96,42 @@ export default function Files(props) {
           uploadFile={props.uploadFile}
         />
       </Box>
-
-      <Table columns={columns} dataSource={props.files}></Table>
+      <TableContainer>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>Action</Th>
+              <Th>Name</Th>
+              <Th>Description</Th>
+              <Th isNumeric>Size</Th>
+              <Th>Type</Th>
+              <Th>Upload Time</Th>
+              <Th>Owner</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {props.files.map((item, i) => [
+              <Tr>
+                <Td>
+                  <ContractOfferingModal
+                    account={props.account}
+                    fileHash={item.fileHash}
+                    dataContract={props.dataContract}
+                  />
+                </Td>
+                <Td>{item.fileName}</Td>
+                <Td>{item.fileDescription}</Td>
+                <Td>{item.fileSize}</Td>
+                <Td>{item.fileType}</Td>
+                <Td>
+                  {moment.unix(item.uploadTime).format("h:mm:ss A M/D/Y")}
+                </Td>
+                <Td>{item.uploader}</Td>
+              </Tr>,
+            ])}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 }
