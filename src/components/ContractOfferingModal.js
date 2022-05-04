@@ -81,9 +81,10 @@ export default function DataUpload(props) {
             </Box>
             <Button
               onClick={() => {
+                console.log(props.owner);
                 props.dataContract.methods
                   .OfferAContract(
-                    props.account,
+                    props.owner,
                     value,
                     length.toString(),
                     props.fileHash

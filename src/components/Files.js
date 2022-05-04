@@ -114,6 +114,7 @@ export default function Files(props) {
               <Tr>
                 <Td>
                   <ContractOfferingModal
+                    owner={item.uploader}
                     account={props.account}
                     fileHash={item.fileHash}
                     dataContract={props.dataContract}

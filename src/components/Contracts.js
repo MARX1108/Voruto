@@ -265,6 +265,7 @@ export default function Contracts(props) {
         height={"70%"}
       >
         {props.contracts.map((item, i) => {
+          console.log(item);
           if (item.borrower === props.account || item.owner === props.account) {
             return (
               <Box
